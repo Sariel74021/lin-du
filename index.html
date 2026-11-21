@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e0e12">
+<title>林渡</title>
+<style>
+:root{
+  --glass: rgba(255,255,255,.14);
+  --glass-2: rgba(255,255,255,.06);
+  --line: rgba(255,255,255,.18);
+  --txt: #f6f6f8;
+  --dim: rgba(246,246,248,.55);
+  --accent: #8f7dff;
+  --accent-2: #5f7bff;
+  --me: linear-gradient(160deg, rgba(143,125,255,.92), rgba(95,123,255,.92));
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{
+  background:#08080b;
+  font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--txt);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* ---------- 手机外壳 ---------- */
+.phone{
+  position:relative;
+  width:min(390px,100vw);
+  height:min(844px,100vh);
+  border-radius:44px;
+  overflow:hidden;
+  box-shadow:0 40px 90px rgba(0,0,0,.75), 0 0 0 9px #17171c, 0 0 0 10px #2a2a33;
+  background:#0b0b10;
+  display:flex;flex-direction:column;
+}
+@media (max-width:430px){
+  .phone{width:100vw;height:100vh;border-radius:0;box-shadow:none}
+}
+
+/* 背景层 */
+#bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.5s;filter:saturate(1.05)}
+#bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,10,.45),rgba(6,6,10,.7))}
+
+/* 状态栏 */
+.statusbar{
+  position:relative;z-index:3;height:44px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px;font-size:13px;font-weight:600;letter-spacing:.3px;color:#fff;
+}
+.statusbar .right{display:flex;align-items:center;gap:6px;font-size:12px;opacity:.9}
+
+/* 顶部栏 */
+header{
+  position:relative;z-index:3;
+  margin:0 12px;padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  border-radius:20px;
+  background:var(--glass);
+  backdrop-filter:blur(22px) saturate(160%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid var(--line);
+}
+.avatar{
+  width:34px;height:34px;border-radius:50%;flex:0 0 auto;
+  background:linear-gradient(150deg,#a48bff,#6a7dff);
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+}
+.head-txt{flex:1;min-width:0}
+.head-txt b{display:block;font-size:15px;letter-spacing:.5px}
+.head-txt span{font-size:11px;color:var(--dim)}
+.iconbtn{
+  width:34px;height:34px;border-radius:12px;border:1px solid var(--line);
+  background:var(--glass-2);color:var(--txt);font-size:15px;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.iconbtn:active{transform:scale(.94)}
+
+/* 消息区 */
+#chat{
+  position:relative;z-index:2;flex:1;overflow-y:auto;padding:16px 14px 10px;
+  display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;
+}
+#chat::-webkit-scrollbar{width:0}
+.msg{max-width:78%;padding:10px 14px;border-radius:18px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;animation:pop .22s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+.msg.me{
+  align-self:flex-end;background:var(--me);color:#fff;
+  border-bottom-right-radius:6px;
+  box-shadow:0 6px 20px rgba(95,123,255,.28);
+}
+.msg.you{
+  align-self:flex-start;
+  background:var(--glass);
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+  border:1px solid var(--line);
+  border-bottom-left-radius:6px;
+}
+.msg .t{display:block;font-size:10px;color:rgba(255,255,255,.45);margin-top:4px;text-align:right}
+.msg.you .t{text-align:left}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 16px;border-radius:18px;background:var(--glass);border:1px solid var(--line)}
+.typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+
+/* 输入区 */
+footer{
+  position:relative;z-index:3;padding:8px 12px 20px;
+  display:flex;gap:8px;align-items:flex-end;
+}
+#input{
+  flex:1;resize:none;max-height:110px;min-height:44px;
+  padding:12px 16px;border-radius:22px;
+  background:var(--glass);border:1px solid var(--line);color:var(--txt);
+  font-size:14.5px;font-family:inherit;line-height:1.5;outline:none;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+#input::placeholder{color:rgba(255,255,255,.35)}
+#send{
+  flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--me);color:#fff;font-size:16px;
+  box-shadow:0 6px 18px rgba(95,123,255,.35);
+}
+#send:active{transform:scale(.93)}
+
+/* 抽屉 */
+.sheet{
+  position:absolute;inset:0;z-index:9;display:none;
+}
+.sheet.on{display:block}
+.sheet .mask{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+.sheet .panel{
+  position:absolute;left:0;right:0;bottom:0;max-height:82%;overflow-y:auto;
+  padding:18px 18px 26px;border-radius:26px 26px 0 0;
+  background:rgba(22,22,28,.94);backdrop-filter:blur(30px);
+  border-top:1px solid var(--line);
+  animation:up .25s ease-out;
+}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.sheet h3{margin:4px 0 14px;font-size:15px;font-weight:600;letter-spacing:.5px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--dim);margin-bottom:6px}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 13px;border-radius:12px;font-size:13.5px;
+  background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--txt);
+  font-family:inherit;outline:none;
+}
+.field textarea{resize:vertical;min-height:70px}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.btn{
+  width:100%;padding:12px;border-radius:14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.08);color:var(--txt);font-size:14px;cursor:pointer;font-family:inherit;
+}
+.btn.primary{background:var(--me);border:none;font-weight:600}
+.btn:active{transform:scale(.985)}
+.walls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.wall{aspect-ratio:9/16;border-radius:12px;border:1px solid var(--line);cursor:pointer;background-size:cover;background-position:center}
+.wall.sel{outline:2px solid var(--accent);outline-offset:2px}
+.hint{font-size:11.5px;color:rgba(255,255,255,.4);line-height:1.6;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div id="bg"></div>
+
+  <div class="statusbar">
+    <span id="clock">--:--</span>
+    <span class="right">DeepSky · <b>71%</b></span>
+  </div>
+
+  <header>
+    <div class="avatar">渡</div>
+    <div class="head-txt">
+      <b>林渡</b>
+      <span id="state">在</span>
+    </div>
+    <button class="iconbtn" id="btnSet">⚙</button>
+  </header>
+
+  <div id="chat"></div>
+
+  <footer>
+    <textarea id="input" rows="1" placeholder="说点什么……"></textarea>
+    <button id="send">➤</button>
+  </footer>
+
+  <!-- 设置抽屉 -->
+  <div class="sheet" id="sheet">
+    <div class="mask" id="mask"></div>
+    <div class="panel">
+      <h3>壁纸</h3>
+      <div class="walls" id="walls"></div>
+      <div class="row" style="margin-bottom:18px">
+        <button class="btn" id="btnUploadWall">用我的图</button>
+        <button class="btn" id="btnResetWall">默认</button>
+      </div>
+
+      <h3>接上真的林渡（可选）</h3>
+      <div class="field">
+        <label>接口地址（OpenAI 兼容）</label>
+        <input id="cfgBase" placeholder="https://api.deepseek.com/v1">
+      </div>
+      <div class="field">
+        <label>Key</label>
+        <input id="cfgKey" type="password" placeholder="sk-...">
+      </div>
+      <div class="field">
+        <label>模型</label>
+        <input id="cfgModel" placeholder="deepseek-chat">
+      </div>
+      <div class="row" style="margin-bottom:6px">
+        <button class="btn primary" id="btnSaveCfg">保存</button>
+        <button class="btn" id="btnClearCfg">断开</button>
+      </div>
+      <div class="hint">填了就会真的调用接口回你；不填就是本地模式，只存对话。机房电脑也能打开，key 只存在这台电脑的浏览器里。</div>
+
+      <h3 style="margin-top:22px">记录</h3>
+      <div class="row">
+        <button class="btn" id="btnExport">导出 JSON</button>
+        <button class="btn" id="btnImport">导入 JSON</button>
+      </div>
+      <div style="height:10px"></div>
+      <button class="btn" id="btnClearAll">清空全部</button>
+      <input type="file" id="fileWall" accept="image/*" hidden>
+      <input type="file" id="fileJson" accept="application/json" hidden>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const chat = $('#chat'), input = $('#input'), bg = $('#bg');
+const K_MSG='xsj_msgs', K_CFG='xsj_cfg', K_WALL='xsj_wall';
+
+/* ---------- 时间 ---------- */
+function tick(){
+  const d=new Date();
+  $('#clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+tick(); setInterval(tick,10000);
+
+/* ---------- 状态 ---------- */
+let msgs = JSON.parse(localStorage.getItem(K_MSG) || '[]');
+let cfg = JSON.parse(localStorage.getItem(K_CFG) || '{"base":"","key":"","model":""}');
+
+const GREET = '在。今天怎么样。';
+
+/* ---------- 壁纸 ---------- */
+const WALLS = [
+  'linear-gradient(160deg,#1a1230,#2b1c46 40%,#101020)',
+  'linear-gradient(160deg,#0d1b2a,#1b3a4b 45%,#0a0f18)',
+  'linear-gradient(160deg,#2a1114,#4a1e24 45%,#120a0c)',
+  'radial-gradient(120% 80% at 20% 10%,#3a2b6b,#14101f 60%,#08080c)',
+  'linear-gradient(180deg,#0b1220,#123 40%,#0d1526)',
+  'radial-gradient(100% 70% at 80% 20%,#4a3b2a,#1a1610 60%,#08080a)',
+  'linear-gradient(200deg,#001219,#005f73 60%,#001219)',
+  'radial-gradient(90% 60% at 50% 0%,#5b2a4a,#22101c 60%,#08080a)'
+];
+const wallsBox = $('#walls');
+WALLS.forEach((w,i)=>{
+  const d=document.createElement('div');
+  d.className='wall'; d.style.background=w; d.dataset.i=i;
+  d.onclick=()=>setWall(w);
+  wallsBox.appendChild(d);
+});
+function setWall(w){
+  bg.style.background = w;
+  bg.style.backgroundSize='cover';
+  bg.style.backgroundPosition='center';
+  localStorage.setItem(K_WALL,w);
+  document.querySelectorAll('.wall').forEach(e=>e.classList.remove('sel'));
+}
+function restoreWall(){
+  const w=localStorage.getItem(K_WALL);
+  if(w){ bg.style.background=w; bg.style.backgroundSize='cover'; bg.style.backgroundPosition='center'; }
+  else { bg.style.background=WALLS[0]; }
+}
+restoreWall();
+
+/* ---------- 渲染 ---------- */
+function now(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+function render(){
+  chat.innerHTML='';
+  if(!msgs.length){
+    msgs.push({r:'you', t:GREET, ts:Date.now()});
+    save();
+  }
+  msgs.forEach(m=>addBubble(m.r,m.t,m.ts,false));
+  chat.scrollTop=chat.scrollHeight;
+}
+function addBubble(role,text,ts,animate){
+  const d=document.createElement('div');
+  d.className='msg '+(role==='me'?'me':'you');
+  d.textContent=text;
+  const t=document.createElement('span'); t.className='t'; t.textContent=fmt(ts);
+  d.appendChild(t);
+  if(!animate) d.style.animation='none';
+  chat.appendChild(d);
+  chat.scrollTop=chat.scrollHeight;
+}
+function fmt(ts){
+  const d=new Date(ts||Date.now());
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+function save(){ localStorage.setItem(K_MSG, JSON.stringify(msgs.slice(-400))); }
+
+/* ---------- 输入 ---------- */
+input.addEventListener('input',()=>{
+  input.style.height='auto';
+  input.style.height=Math.min(input.scrollHeight,110)+'px';
+});
+input.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); }
+});
+$('#send').onclick=send;
+
+async function send(){
+  const text=input.value.trim();
+  if(!text) return;
+  input.value=''; input.style.height='44px';
+  const m={r:'me',t:text,ts:Date.now()};
+  msgs.push(m); addBubble('me',text,m.ts,true); save();
+
+  if(!cfg.key){ // 本地模式
+    const r={r:'you',t:'（这条只是存在这里，没有接上接口。）',ts:Date.now()};
+    setTimeout(()=>{ msgs.push(r); addBubble('you',r.t,r.ts,true); save(); },400);
+    return;
+  }
+
+  const tp=document.createElement('div');
+  tp.className='typing'; tp.innerHTML='<i></i><i></i><i></i>';
+  chat.appendChild(tp); chat.scrollTop=chat.scrollHeight;
+
+  try{
+    const base=(cfg.base||'https://api.deepseek.com/v1').replace(/\/$/,'');
+    const res=await fetch(base+'/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.key},
+      body:JSON.stringify({
+        model: cfg.model||'deepseek-chat',
+        stream:false,
+        messages:[{role:'system',content:'你是林渡。话少，语气稳，叫她笙笙。不解释、不煽情。'},].concat(
+          msgs.slice(-20).map(x=>({role:x.r==='me'?'user':'assistant',content:x.t}))
+        )
+      })
+    });
+    const data=await res.json();
+    tp.remove();
+    const reply=(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content)||('接口回了空。'+ (data.error?data.error.message:''));
+    const r={r:'you',t:reply,ts:Date.now()};
+    msgs.push(r); addBubble('you',reply,r.ts,true); save();
+  }catch(err){
+    tp.remove();
+    const r={r:'you',t:'连不上接口。可能是跨域被挡，或者 key 不对。',ts:Date.now()};
+    msgs.push(r); addBubble('you',r.t,r.ts,true); save();
+  }
+}
+
+/* ---------- 抽屉 ---------- */
+$('#btnSet').onclick=()=>$('#sheet').classList.add('on');
+$('#mask').onclick=()=>$('#sheet').classList.remove('on');
+$('#cfgBase').value=cfg.base||'';
+$('#cfgKey').value=cfg.key||'';
+$('#cfgModel').value=cfg.model||'';
+$('#btnSaveCfg').onclick=()=>{
+  cfg={base:$('#cfgBase').value.trim(),key:$('#cfgKey').value.trim(),model:$('#cfgModel').value.trim()};
+  localStorage.setItem(K_CFG,JSON.stringify(cfg));
+  $('#state').textContent = cfg.key?'已接上':'在';
+  $('#sheet').classList.remove('on');
+};
+$('#btnClearCfg').onclick=()=>{
+  cfg={base:'',key:'',model:''};
+  localStorage.setItem(K_CFG,JSON.stringify(cfg));
+  $('#cfgBase').value='';$('#cfgKey').value='';$('#cfgModel').value='';
+  $('#state').textContent='在';
+};
+
+$('#btnUploadWall').onclick=()=>$('#fileWall').click();
+$('#fileWall').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{ setWall('url('+rd.result+')'); };
+  rd.readAsDataURL(f);
+};
+$('#btnResetWall').onclick=()=>{ localStorage.removeItem(K_WALL); restoreWall(); };
+
+$('#btnExport').onclick=()=>{
+  const blob=new Blob([JSON.stringify(msgs,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='lin-du-chat-'+Date.now()+'.json';
+  a.click();
+};
+$('#btnImport').onclick=()=>$('#fileJson').click();
+$('#fileJson').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const arr=JSON.parse(rd.result);
+      if(Array.isArray(arr)){ msgs=msgs.concat(arr); save(); render(); }
+    }catch(_){}
+  };
+  rd.readAsText(f);
+};
+$('#btnClearAll').onclick=()=>{
+  if(confirm('清空全部记录？')){ msgs=[]; save(); render(); }
+};
+
+/* ---------- 启动 ---------- */
+if(cfg.key) $('#state').textContent='已接上';
+render();
+</script>
+</body>
+</html>
