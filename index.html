@@ -172,11 +172,12 @@ const dayCache={};
 function dayKey(ts){const d=new Date(ts);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
 function dayLabel(k){const t=new Date();const y=new Date(t.getFullYear(),t.getMonth(),t.getDate());const dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1);if(k===dayKey(t))return '今天';if(k===dayKey(dd))return '昨天';const d=new Date(k);return (d.getMonth()+1)+'月'+d.getDate()+'日'}
 function fmt(ts){const d=new Date(ts);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function stSrc(n){return (STICKERS&&STICKERS[n])?STICKERS[n]:'stickers/'+n}
 function addBubble(m,animate){
   const k=dayKey(m.ts);
   if(!dayCache[k]){dayCache[k]=true;const dm=document.createElement('div');dm.className='daymark';dm.textContent=dayLabel(k);chat.appendChild(dm)}
   const d=document.createElement('div');d.className='msg '+(m.r==='me'?'me':'you');
-  if(m.k==='img'){const im=document.createElement('img');im.className='st';im.src='stickers/'+m.src;im.alt=m.t||'';d.appendChild(im)}
+  if(m.k==='img'){const im=document.createElement('img');im.className='st';im.src=stSrc(m.src);im.alt=m.t||'';d.appendChild(im)}
   else{d.textContent=m.t}
   const t=document.createElement('span');t.className='t';t.textContent=fmt(m.ts);d.appendChild(t);
   if(!animate)d.style.animation='none';
@@ -208,7 +209,7 @@ function sendStk(name){
   ask(m);
 }
 const grid=$('#stkGrid');
-STICKERS.forEach(n=>{const b=document.createElement('button');const im=document.createElement('img');im.src='stickers/'+n;b.appendChild(im);b.onclick=()=>sendStk(n);grid.appendChild(b)});
+STICKERS.forEach(n=>{const b=document.createElement('button');const im=document.createElement('img');im.src=stSrc(n);b.appendChild(im);b.onclick=()=>sendStk(n);grid.appendChild(b)});
 $('#emojiBtn').onclick=()=>$('#stkSheet').classList.add('on');
 $('#stkMask').onclick=()=>$('#stkSheet').classList.remove('on');
 $('#btnSet').onclick=()=>$('#sheet').classList.add('on');
