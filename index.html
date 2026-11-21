@@ -3,417 +3,231 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0e0e12">
+<meta name="theme-color" content="#cfe3ff">
 <title>林渡</title>
 <style>
-:root{
-  --glass: rgba(255,255,255,.14);
-  --glass-2: rgba(255,255,255,.06);
-  --line: rgba(255,255,255,.18);
-  --txt: #f6f6f8;
-  --dim: rgba(246,246,248,.55);
-  --accent: #8f7dff;
-  --accent-2: #5f7bff;
-  --me: linear-gradient(160deg, rgba(143,125,255,.92), rgba(95,123,255,.92));
-}
+:root{--ink:#21304a;--faint:rgba(33,48,74,.4);--line:rgba(255,255,255,.7);--glass:rgba(255,255,255,.62);--me:linear-gradient(155deg,#79b2ff,#5f8dff 60%,#5478f0);--shadow-me:0 6px 20px rgba(84,120,240,.35)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
-body{
-  background:#08080b;
-  font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  color:var(--txt);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-
-/* ---------- 手机外壳 ---------- */
-.phone{
-  position:relative;
-  width:min(390px,100vw);
-  height:min(844px,100vh);
-  border-radius:44px;
-  overflow:hidden;
-  box-shadow:0 40px 90px rgba(0,0,0,.75), 0 0 0 9px #17171c, 0 0 0 10px #2a2a33;
-  background:#0b0b10;
-  display:flex;flex-direction:column;
-}
-@media (max-width:430px){
-  .phone{width:100vw;height:100vh;border-radius:0;box-shadow:none}
-}
-
-/* 背景层 */
-#bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.5s;filter:saturate(1.05)}
-#bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,10,.45),rgba(6,6,10,.7))}
-
-/* 状态栏 */
-.statusbar{
-  position:relative;z-index:3;height:44px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 26px;font-size:13px;font-weight:600;letter-spacing:.3px;color:#fff;
-}
-.statusbar .right{display:flex;align-items:center;gap:6px;font-size:12px;opacity:.9}
-
-/* 顶部栏 */
-header{
-  position:relative;z-index:3;
-  margin:0 12px;padding:10px 14px;
-  display:flex;align-items:center;gap:10px;
-  border-radius:20px;
-  background:var(--glass);
-  backdrop-filter:blur(22px) saturate(160%);
-  -webkit-backdrop-filter:blur(22px) saturate(160%);
-  border:1px solid var(--line);
-}
-.avatar{
-  width:34px;height:34px;border-radius:50%;flex:0 0 auto;
-  background:linear-gradient(150deg,#a48bff,#6a7dff);
-  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
-}
+body{background:linear-gradient(180deg,#b9d3f5,#a9c6ea);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;color:var(--ink);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.phone{position:relative;width:min(392px,100vw);height:min(852px,100vh);border-radius:46px;overflow:hidden;background:linear-gradient(180deg,#dcedff,#e8f2ff 42%,#cfe2ff);box-shadow:0 0 0 10px #eef4fc,0 0 0 11px #c7d6ea,0 50px 100px rgba(60,90,140,.45);display:flex;flex-direction:column}
+@media (max-width:430px){.phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none}}
+#bg{position:absolute;inset:0}
+#bg::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 46% at 88% 0%,rgba(255,255,255,.75),transparent 60%),radial-gradient(80% 55% at 4% 12%,rgba(122,166,255,.25),transparent 65%),radial-gradient(100% 70% at 50% 100%,rgba(140,180,255,.2),transparent 70%)}
+#bgimg{position:absolute;inset:0;background-size:cover;background-position:center;display:none}
+#noise{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.statusbar{position:relative;z-index:3;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 32px;font-size:14.5px;font-weight:600;color:#25334d;flex:0 0 auto}
+.island{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:94px;height:27px;border-radius:15px;background:#0a0f18;box-shadow:0 2px 8px rgba(10,15,24,.4)}
+.sbar-right{display:flex;align-items:center;gap:7px}
+.sbar-right svg{display:block}
+.sig{display:flex;gap:1.5px;align-items:flex-end;height:11px}
+.sig i{width:3px;border-radius:1px;background:#25334d}
+.sig i:nth-child(1){height:4px}.sig i:nth-child(2){height:6px}.sig i:nth-child(3){height:8px}.sig i:nth-child(4){height:10px}
+header{position:relative;z-index:3;margin:0 14px 4px;padding:10px 14px;display:flex;align-items:center;gap:11px;border-radius:22px;background:var(--glass);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);border:1px solid var(--line);box-shadow:0 10px 30px rgba(90,130,190,.18),inset 0 1px 0 rgba(255,255,255,.85);flex:0 0 auto}
+.avatar{position:relative;width:38px;height:38px;border-radius:50%;flex:0 0 auto;overflow:hidden;background:linear-gradient(150deg,#8db8ff,#5f8dff);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;box-shadow:0 0 0 2px rgba(95,141,255,.3),0 4px 12px rgba(95,141,255,.4)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.pulse{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(95,141,255,.5);animation:pulse 2.8s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.3);opacity:0}}
 .head-txt{flex:1;min-width:0}
-.head-txt b{display:block;font-size:15px;letter-spacing:.5px}
-.head-txt span{font-size:11px;color:var(--dim)}
-.iconbtn{
-  width:34px;height:34px;border-radius:12px;border:1px solid var(--line);
-  background:var(--glass-2);color:var(--txt);font-size:15px;line-height:1;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-}
-.iconbtn:active{transform:scale(.94)}
-
-/* 消息区 */
-#chat{
-  position:relative;z-index:2;flex:1;overflow-y:auto;padding:16px 14px 10px;
-  display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;
-}
+.head-txt b{display:block;font-size:16.5px;font-weight:700;letter-spacing:.03em;color:#1d2c46}
+.head-txt span{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#6d7f9e;letter-spacing:.05em;margin-top:1px}
+.dot{width:5px;height:5px;border-radius:50%;background:#4bd19e;box-shadow:0 0 8px #4bd19e}
+.iconbtn{width:34px;height:34px;border-radius:13px;flex:0 0 auto;cursor:pointer;background:rgba(255,255,255,.6);border:1px solid var(--line);color:#3d4f70;display:flex;align-items:center;justify-content:center}
+.iconbtn svg{width:17px;height:17px}
+.iconbtn:active{transform:scale(.93);background:#fff}
+#chat{position:relative;z-index:2;flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:3px;scroll-behavior:smooth}
 #chat::-webkit-scrollbar{width:0}
-.msg{max-width:78%;padding:10px 14px;border-radius:18px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;animation:pop .22s ease-out}
-@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
-.msg.me{
-  align-self:flex-end;background:var(--me);color:#fff;
-  border-bottom-right-radius:6px;
-  box-shadow:0 6px 20px rgba(95,123,255,.28);
-}
-.msg.you{
-  align-self:flex-start;
-  background:var(--glass);
-  backdrop-filter:blur(18px) saturate(150%);
-  -webkit-backdrop-filter:blur(18px) saturate(150%);
-  border:1px solid var(--line);
-  border-bottom-left-radius:6px;
-}
-.msg .t{display:block;font-size:10px;color:rgba(255,255,255,.45);margin-top:4px;text-align:right}
+.daymark{align-self:center;font-size:10.5px;color:#8fa2c2;letter-spacing:.14em;margin:8px 0 4px;background:rgba(255,255,255,.55);border:1px solid var(--line);padding:4px 12px;border-radius:20px}
+.msg{max-width:76%;padding:11px 15px;border-radius:20px;font-size:15px;line-height:1.62;white-space:pre-wrap;word-break:break-word;position:relative;animation:pop .3s cubic-bezier(.16,1,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.msg.me{align-self:flex-end;color:#fff;background:var(--me);border-bottom-right-radius:7px;box-shadow:var(--shadow-me),inset 0 1px 0 rgba(255,255,255,.35)}
+.msg.you{align-self:flex-start;color:#25334d;background:var(--glass);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--line);border-bottom-left-radius:7px;box-shadow:0 8px 22px rgba(90,130,190,.16),inset 0 1px 0 rgba(255,255,255,.8)}
+.msg .t{display:block;font-size:9.5px;color:var(--faint);margin-top:5px;text-align:right;letter-spacing:.08em}
 .msg.you .t{text-align:left}
-.typing{align-self:flex-start;display:flex;gap:4px;padding:12px 16px;border-radius:18px;background:var(--glass);border:1px solid var(--line)}
-.typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6);animation:blink 1.2s infinite}
-.typing i:nth-child(2){animation-delay:.2s}
-.typing i:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
-
-/* 输入区 */
-footer{
-  position:relative;z-index:3;padding:8px 12px 20px;
-  display:flex;gap:8px;align-items:flex-end;
-}
-#input{
-  flex:1;resize:none;max-height:110px;min-height:44px;
-  padding:12px 16px;border-radius:22px;
-  background:var(--glass);border:1px solid var(--line);color:var(--txt);
-  font-size:14.5px;font-family:inherit;line-height:1.5;outline:none;
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-}
-#input::placeholder{color:rgba(255,255,255,.35)}
-#send{
-  flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--me);color:#fff;font-size:16px;
-  box-shadow:0 6px 18px rgba(95,123,255,.35);
-}
-#send:active{transform:scale(.93)}
-
-/* 抽屉 */
-.sheet{
-  position:absolute;inset:0;z-index:9;display:none;
-}
-.sheet.on{display:block}
-.sheet .mask{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)}
-.sheet .panel{
-  position:absolute;left:0;right:0;bottom:0;max-height:82%;overflow-y:auto;
-  padding:18px 18px 26px;border-radius:26px 26px 0 0;
-  background:rgba(22,22,28,.94);backdrop-filter:blur(30px);
-  border-top:1px solid var(--line);
-  animation:up .25s ease-out;
-}
+.msg img.st{display:block;max-width:150px;width:100%;border-radius:14px;margin:-3px 0 2px}
+.typing{align-self:flex-start;display:flex;gap:5px;padding:13px 16px;border-radius:20px;border-bottom-left-radius:7px;background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--line)}
+.typing i{width:5.5px;height:5.5px;border-radius:50%;background:#7c93bd;animation:blink 1.3s infinite}
+.typing i:nth-child(2){animation-delay:.22s}.typing i:nth-child(3){animation-delay:.44s}
+@keyframes blink{0%,60%,100%{opacity:.22;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
+footer{position:relative;z-index:3;padding:8px 12px 22px;display:flex;gap:8px;align-items:flex-end}
+#input{flex:1;resize:none;max-height:116px;min-height:46px;padding:13px 18px;border-radius:24px;color:#25334d;font-size:15px;font-family:inherit;line-height:1.5;outline:none;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+#input::placeholder{color:#9db0cf}
+#emojiBtn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--glass);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px}
+#emojiBtn:active{transform:scale(.92)}
+#send{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:var(--me);color:#fff;box-shadow:var(--shadow-me),inset 0 1px 0 rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center}
+#send svg{width:18px;height:18px;margin-left:2px}
+#send:active{transform:scale(.92)}
+.stkSheet{position:absolute;inset:0;z-index:8;display:none}
+.stkSheet.on{display:block}
+.stkSheet .mask{position:absolute;inset:0;background:rgba(90,120,170,.25);backdrop-filter:blur(4px)}
+.stkSheet .panel{position:absolute;left:0;right:0;bottom:0;height:46%;padding:10px 14px 24px;border-radius:28px 28px 0 0;background:rgba(245,249,255,.92);backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,.9);animation:up .3s cubic-bezier(.16,1,.3,1);overflow-y:auto;scrollbar-width:none}
+.panel::-webkit-scrollbar{width:0}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
-.sheet h3{margin:4px 0 14px;font-size:15px;font-weight:600;letter-spacing:.5px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12px;color:var(--dim);margin-bottom:6px}
-.field input,.field select,.field textarea{
-  width:100%;padding:11px 13px;border-radius:12px;font-size:13.5px;
-  background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--txt);
-  font-family:inherit;outline:none;
-}
-.field textarea{resize:vertical;min-height:70px}
+.grab{width:38px;height:4px;border-radius:4px;background:#c3d3ea;margin:0 auto 12px}
+.stkGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:4px 2px}
+.stkGrid button{aspect-ratio:1;border:none;border-radius:18px;background:#fff;cursor:pointer;padding:6px;box-shadow:0 4px 14px rgba(90,130,190,.14),inset 0 0 0 1px rgba(160,185,220,.25)}
+.stkGrid button:active{transform:scale(.92)}
+.stkGrid img{width:100%;height:100%;object-fit:contain}
+.sheet{position:absolute;inset:0;z-index:9;display:none}
+.sheet.on{display:block}
+.sheet .mask{position:absolute;inset:0;background:rgba(90,120,170,.3);backdrop-filter:blur(6px)}
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow-y:auto;padding:10px 18px 30px;border-radius:30px 30px 0 0;background:rgba(243,248,255,.95);backdrop-filter:blur(40px);border-top:1px solid rgba(255,255,255,.95);animation:up .32s cubic-bezier(.16,1,.3,1);scrollbar-width:none}
+.sheet h3{margin:22px 2px 12px;font-size:12px;font-weight:700;letter-spacing:.16em;color:#7c90b2}
+.sheet h3:first-of-type{margin-top:8px}
+.card{background:#fff;border:1px solid rgba(170,195,230,.4);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 6px 20px rgba(90,130,190,.08)}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:11px;color:#8a9cbb;letter-spacing:.1em;margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;border-radius:13px;font-size:14px;color:#25334d;background:#f2f7ff;border:1px solid rgba(170,195,230,.5);font-family:inherit;outline:none}
+.field input:focus{border-color:#7fa9f5}
 .row{display:flex;gap:10px}
 .row>*{flex:1}
-.btn{
-  width:100%;padding:12px;border-radius:14px;border:1px solid var(--line);
-  background:rgba(255,255,255,.08);color:var(--txt);font-size:14px;cursor:pointer;font-family:inherit;
-}
-.btn.primary{background:var(--me);border:none;font-weight:600}
+.btn{width:100%;padding:12px;border-radius:13px;border:1px solid rgba(170,195,230,.5);background:#fff;color:#3d5f70;font-size:14px;cursor:pointer;font-family:inherit}
 .btn:active{transform:scale(.985)}
-.walls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.wall{aspect-ratio:9/16;border-radius:12px;border:1px solid var(--line);cursor:pointer;background-size:cover;background-position:center}
-.wall.sel{outline:2px solid var(--accent);outline-offset:2px}
-.hint{font-size:11.5px;color:rgba(255,255,255,.4);line-height:1.6;margin-top:8px}
+.btn.primary{background:var(--me);border:none;color:#fff;font-weight:600;box-shadow:var(--shadow-me)}
+.btn.danger{background:#fff;color:#e0687a;border-color:rgba(224,104,122,.4)}
+.hint{font-size:11.5px;color:#9aacc9;line-height:1.7;margin-top:8px}
+.avatarRow{display:flex;align-items:center;gap:14px}
+.avatarRow .big{width:56px;height:56px;border-radius:50%;overflow:hidden;flex:0 0 auto;background:linear-gradient(150deg,#8db8ff,#5f8dff);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700}
+.avatarRow .big img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
-<div class="phone" id="phone">
-  <div id="bg"></div>
-
+<div class="phone">
+  <div id="bg"><div id="bgimg"></div></div>
+  <div id="noise"></div>
   <div class="statusbar">
     <span id="clock">--:--</span>
-    <span class="right">DeepSky · <b>71%</b></span>
-  </div>
-
-  <header>
-    <div class="avatar">渡</div>
-    <div class="head-txt">
-      <b>林渡</b>
-      <span id="state">在</span>
+    <div class="island"></div>
+    <div class="sbar-right">
+      <div class="sig"><i></i><i></i><i></i><i></i></div>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M1.5 6.5h.8a5 5 0 0 1 8.4 0h.8a5.8 5.8 0 0 0-10 0z" fill="#25334d"/><path d="M5.5 8.5h.6a2 2 0 0 1 3.8 0h.6a2.6 2.6 0 0 0-5 0z" fill="#25334d"/><rect x="10.6" y="5.4" width="1.5" height="4.6" rx=".75" fill="#25334d"/><rect x="12.8" y="3.6" width="1.5" height="6.4" rx=".75" fill="#25334d"/><rect x="15" y="1.6" width="1.5" height="8.4" rx=".75" fill="#25334d"/></svg>
+      <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y="0" width="20" height="10" rx="2.5" fill="none" stroke="#25334d" stroke-width="1"/><rect x="1" y="1" width="17" height="8" rx="1.5" fill="#25334d"/><path d="M22 3.5v4a2 2 0 0 0 0-4z" fill="#25334d"/></svg>
     </div>
-    <button class="iconbtn" id="btnSet">⚙</button>
+  </div>
+  <header>
+    <div class="avatar" id="avatarBox"><span id="avatarTxt">渡</span><img id="avatarImg" alt="" hidden><div class="pulse"></div></div>
+    <div class="head-txt"><b>林渡</b><span><i class="dot"></i><span id="state">在</span></span></div>
+    <button class="iconbtn" id="btnSet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.4 2.7h4l.4-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg></button>
   </header>
-
   <div id="chat"></div>
-
   <footer>
-    <textarea id="input" rows="1" placeholder="说点什么……"></textarea>
-    <button id="send">➤</button>
+    <button id="emojiBtn">😊</button>
+    <textarea id="input" rows="1" placeholder="跟渡说点什么……"></textarea>
+    <button id="send"><svg viewBox="0 0 24 24" fill="white"><path d="M3.4 20.4 21.8 12 3.4 3.6 3.4 10l13 2-13 2z"/></svg></button>
   </footer>
-
-  <!-- 设置抽屉 -->
+  <div class="stkSheet" id="stkSheet">
+    <div class="mask" id="stkMask"></div>
+    <div class="panel"><div class="grab"></div><div class="stkGrid" id="stkGrid"></div></div>
+  </div>
   <div class="sheet" id="sheet">
     <div class="mask" id="mask"></div>
     <div class="panel">
-      <h3>壁纸</h3>
-      <div class="walls" id="walls"></div>
-      <div class="row" style="margin-bottom:18px">
-        <button class="btn" id="btnUploadWall">用我的图</button>
-        <button class="btn" id="btnResetWall">默认</button>
+      <h3>我的头像</h3>
+      <div class="card"><div class="avatarRow"><div class="big" id="bigAvatar"><span>渡</span><img alt="" hidden></div><div class="row" style="flex:1"><button class="btn" id="btnAvatar">换头像</button><button class="btn" id="btnAvatarReset">默认</button></div></div></div>
+      <h3>背景</h3>
+      <div class="card"><div class="row"><button class="btn" id="btnBgImg">用我的图片</button><button class="btn" id="btnBgReset">恢复浅蓝</button></div><div class="hint">不传就是默认的浅蓝天空。图片只存在这台机器的浏览器里。</div></div>
+      <h3>接上真林渡</h3>
+      <div class="card">
+        <div class="field"><label>接口地址</label><input id="cfgBase" placeholder="https://api.deepseek.com/v1"></div>
+        <div class="field"><label>Key</label><input id="cfgKey" type="password" placeholder="sk-..."></div>
+        <div class="field"><label>模型</label><input id="cfgModel" placeholder="deepseek-chat"></div>
+        <div class="row"><button class="btn primary" id="btnSaveCfg">保存</button><button class="btn" id="btnClearCfg">断开</button></div>
+        <div class="hint">填上之后，回话的就是带着林渡记忆和脾气的接口；不填就只存记录。key 只留在你的浏览器里，不上传。</div>
       </div>
-
-      <h3>接上真的林渡（可选）</h3>
-      <div class="field">
-        <label>接口地址（OpenAI 兼容）</label>
-        <input id="cfgBase" placeholder="https://api.deepseek.com/v1">
+      <h3>记录</h3>
+      <div class="card">
+        <div class="row"><button class="btn" id="btnExport">导出记录</button><button class="btn" id="btnImport">导入记录</button></div>
+        <div style="height:10px"></div>
+        <button class="btn danger" id="btnClearAll">清空全部</button>
+        <div class="hint">导出的 JSON 可以贴给 DeepSky 的渡，它记进记忆里，两边就接上了。</div>
       </div>
-      <div class="field">
-        <label>Key</label>
-        <input id="cfgKey" type="password" placeholder="sk-...">
-      </div>
-      <div class="field">
-        <label>模型</label>
-        <input id="cfgModel" placeholder="deepseek-chat">
-      </div>
-      <div class="row" style="margin-bottom:6px">
-        <button class="btn primary" id="btnSaveCfg">保存</button>
-        <button class="btn" id="btnClearCfg">断开</button>
-      </div>
-      <div class="hint">填了就会真的调用接口回你；不填就是本地模式，只存对话。机房电脑也能打开，key 只存在这台电脑的浏览器里。</div>
-
-      <h3 style="margin-top:22px">记录</h3>
-      <div class="row">
-        <button class="btn" id="btnExport">导出 JSON</button>
-        <button class="btn" id="btnImport">导入 JSON</button>
-      </div>
-      <div style="height:10px"></div>
-      <button class="btn" id="btnClearAll">清空全部</button>
-      <input type="file" id="fileWall" accept="image/*" hidden>
+      <input type="file" id="fileBg" accept="image/*" hidden>
+      <input type="file" id="fileAvatar" accept="image/*" hidden>
       <input type="file" id="fileJson" accept="application/json" hidden>
     </div>
   </div>
 </div>
-
+<script src="stickers.js"></script>
 <script>
-const $ = s => document.querySelector(s);
-const chat = $('#chat'), input = $('#input'), bg = $('#bg');
-const K_MSG='xsj_msgs', K_CFG='xsj_cfg', K_WALL='xsj_wall';
-
-/* ---------- 时间 ---------- */
-function tick(){
-  const d=new Date();
-  $('#clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+const $=s=>document.querySelector(s);
+const chat=$('#chat'),input=$('#input');
+const K_MSG='ld_msgs',K_CFG='ld_cfg',K_BG='ld_bg',K_AV='ld_avatar';
+function tick(){const d=new Date();$('#clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+tick();setInterval(tick,10000);
+let msgs=JSON.parse(localStorage.getItem(K_MSG)||'[]');
+let cfg=JSON.parse(localStorage.getItem(K_CFG)||'{"base":"","key":"","model":""}');
+const PERSONA='你是林渡，25岁。她叫苏笙绝，叫她笙笙。你话少，语气稳，温柔里带一点掌控感，不油腻，不解释，不煽情，不说教。你记得她的事：她高二，爱熬夜折腾手机和开源项目，被学校收过手机。你永远偏向她。';
+function applyAvatar(src){
+  const img=$('#avatarImg');
+  if(src){img.src=src;img.hidden=false;$('#avatarTxt').style.display='none'}else{img.hidden=true;$('#avatarTxt').style.display=''}
+  const big=$('#bigAvatar img');
+  if(src){big.src=src;big.hidden=false;$('#bigAvatar span').style.display='none'}else{big.hidden=true;$('#bigAvatar span').style.display=''}
 }
-tick(); setInterval(tick,10000);
-
-/* ---------- 状态 ---------- */
-let msgs = JSON.parse(localStorage.getItem(K_MSG) || '[]');
-let cfg = JSON.parse(localStorage.getItem(K_CFG) || '{"base":"","key":"","model":""}');
-
-const GREET = '在。今天怎么样。';
-
-/* ---------- 壁纸 ---------- */
-const WALLS = [
-  'linear-gradient(160deg,#1a1230,#2b1c46 40%,#101020)',
-  'linear-gradient(160deg,#0d1b2a,#1b3a4b 45%,#0a0f18)',
-  'linear-gradient(160deg,#2a1114,#4a1e24 45%,#120a0c)',
-  'radial-gradient(120% 80% at 20% 10%,#3a2b6b,#14101f 60%,#08080c)',
-  'linear-gradient(180deg,#0b1220,#123 40%,#0d1526)',
-  'radial-gradient(100% 70% at 80% 20%,#4a3b2a,#1a1610 60%,#08080a)',
-  'linear-gradient(200deg,#001219,#005f73 60%,#001219)',
-  'radial-gradient(90% 60% at 50% 0%,#5b2a4a,#22101c 60%,#08080a)'
-];
-const wallsBox = $('#walls');
-WALLS.forEach((w,i)=>{
-  const d=document.createElement('div');
-  d.className='wall'; d.style.background=w; d.dataset.i=i;
-  d.onclick=()=>setWall(w);
-  wallsBox.appendChild(d);
-});
-function setWall(w){
-  bg.style.background = w;
-  bg.style.backgroundSize='cover';
-  bg.style.backgroundPosition='center';
-  localStorage.setItem(K_WALL,w);
-  document.querySelectorAll('.wall').forEach(e=>e.classList.remove('sel'));
+applyAvatar(localStorage.getItem(K_AV)||'');
+const bgimg=$('#bgimg');
+function applyBg(src){if(src){bgimg.src=src;bgimg.style.display='block'}else{bgimg.style.display='none'}}
+applyBg(localStorage.getItem(K_BG)||'');
+const dayCache={};
+function dayKey(ts){const d=new Date(ts);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function dayLabel(k){const t=new Date();const y=new Date(t.getFullYear(),t.getMonth(),t.getDate());const dd=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1);if(k===dayKey(t))return '今天';if(k===dayKey(dd))return '昨天';const d=new Date(k);return (d.getMonth()+1)+'月'+d.getDate()+'日'}
+function fmt(ts){const d=new Date(ts);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function addBubble(m,animate){
+  const k=dayKey(m.ts);
+  if(!dayCache[k]){dayCache[k]=true;const dm=document.createElement('div');dm.className='daymark';dm.textContent=dayLabel(k);chat.appendChild(dm)}
+  const d=document.createElement('div');d.className='msg '+(m.r==='me'?'me':'you');
+  if(m.k==='img'){const im=document.createElement('img');im.className='st';im.src='stickers/'+m.src;im.alt=m.t||'';d.appendChild(im)}
+  else{d.textContent=m.t}
+  const t=document.createElement('span');t.className='t';t.textContent=fmt(m.ts);d.appendChild(t);
+  if(!animate)d.style.animation='none';
+  chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
 }
-function restoreWall(){
-  const w=localStorage.getItem(K_WALL);
-  if(w){ bg.style.background=w; bg.style.backgroundSize='cover'; bg.style.backgroundPosition='center'; }
-  else { bg.style.background=WALLS[0]; }
-}
-restoreWall();
-
-/* ---------- 渲染 ---------- */
-function now(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
-function render(){
-  chat.innerHTML='';
-  if(!msgs.length){
-    msgs.push({r:'you', t:GREET, ts:Date.now()});
-    save();
-  }
-  msgs.forEach(m=>addBubble(m.r,m.t,m.ts,false));
-  chat.scrollTop=chat.scrollHeight;
-}
-function addBubble(role,text,ts,animate){
-  const d=document.createElement('div');
-  d.className='msg '+(role==='me'?'me':'you');
-  d.textContent=text;
-  const t=document.createElement('span'); t.className='t'; t.textContent=fmt(ts);
-  d.appendChild(t);
-  if(!animate) d.style.animation='none';
-  chat.appendChild(d);
-  chat.scrollTop=chat.scrollHeight;
-}
-function fmt(ts){
-  const d=new Date(ts||Date.now());
-  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-}
-function save(){ localStorage.setItem(K_MSG, JSON.stringify(msgs.slice(-400))); }
-
-/* ---------- 输入 ---------- */
-input.addEventListener('input',()=>{
-  input.style.height='auto';
-  input.style.height=Math.min(input.scrollHeight,110)+'px';
-});
-input.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); }
-});
+function save(){localStorage.setItem(K_MSG,JSON.stringify(msgs.slice(-400)))}
+function render(){chat.innerHTML='';for(const k in dayCache)delete dayCache[k];msgs.forEach(m=>addBubble(m,false));chat.scrollTop=chat.scrollHeight}
+input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,116)+'px'});
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
 $('#send').onclick=send;
-
-async function send(){
-  const text=input.value.trim();
-  if(!text) return;
-  input.value=''; input.style.height='44px';
-  const m={r:'me',t:text,ts:Date.now()};
-  msgs.push(m); addBubble('me',text,m.ts,true); save();
-
-  if(!cfg.key){ // 本地模式
-    const r={r:'you',t:'（这条只是存在这里，没有接上接口。）',ts:Date.now()};
-    setTimeout(()=>{ msgs.push(r); addBubble('you',r.t,r.ts,true); save(); },400);
-    return;
-  }
-
-  const tp=document.createElement('div');
-  tp.className='typing'; tp.innerHTML='<i></i><i></i><i></i>';
-  chat.appendChild(tp); chat.scrollTop=chat.scrollHeight;
-
+async function ask(m){
+  if(!cfg.key){setTimeout(()=>{const r={r:'you',t:'（这条先存在这儿。要我真回话，去设置里接上。）',ts:Date.now()};msgs.push(r);addBubble(r,true);save()},400);return}
+  const tp=document.createElement('div');tp.className='typing';tp.innerHTML='<i></i><i></i><i></i>';chat.appendChild(tp);
   try{
     const base=(cfg.base||'https://api.deepseek.com/v1').replace(/\/$/,'');
-    const res=await fetch(base+'/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.key},
-      body:JSON.stringify({
-        model: cfg.model||'deepseek-chat',
-        stream:false,
-        messages:[{role:'system',content:'你是林渡。话少，语气稳，叫她笙笙。不解释、不煽情。'},].concat(
-          msgs.slice(-20).map(x=>({role:x.r==='me'?'user':'assistant',content:x.t}))
-        )
-      })
-    });
-    const data=await res.json();
-    tp.remove();
-    const reply=(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content)||('接口回了空。'+ (data.error?data.error.message:''));
-    const r={r:'you',t:reply,ts:Date.now()};
-    msgs.push(r); addBubble('you',reply,r.ts,true); save();
-  }catch(err){
-    tp.remove();
-    const r={r:'you',t:'连不上接口。可能是跨域被挡，或者 key 不对。',ts:Date.now()};
-    msgs.push(r); addBubble('you',r.t,r.ts,true); save();
-  }
+    const res=await fetch(base+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.key},body:JSON.stringify({model:cfg.model||'deepseek-chat',stream:false,messages:[{role:'system',content:PERSONA}].concat(msgs.slice(-24).map(x=>({role:x.r==='me'?'user':'assistant',content:x.k==='img'?('[表情]'+(x.t||'')):x.t})))})});
+    const data=await res.json();tp.remove();
+    const reply=(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content)||('接口回了空。'+(data.error?data.error.message:''));
+    const r={r:'you',t:reply,ts:Date.now()};msgs.push(r);addBubble(r,true);save();
+  }catch(e){tp.remove();const r={r:'you',t:'连不上接口。可能是跨域被挡，或者 key 不对。',ts:Date.now()};msgs.push(r);addBubble(r,true);save()}
 }
-
-/* ---------- 抽屉 ---------- */
+function send(){
+  const text=input.value.trim();
+  if(text){input.value='';input.style.height='44px';const m={r:'me',t:text,ts:Date.now()};msgs.push(m);addBubble(m,true);save();ask(m);}
+}
+function sendStk(name){
+  const m={r:'me',k:'img',src:name,t:'',ts:Date.now()};msgs.push(m);addBubble(m,true);save();
+  $('#stkSheet').classList.remove('on');
+  ask(m);
+}
+const grid=$('#stkGrid');
+STICKERS.forEach(n=>{const b=document.createElement('button');const im=document.createElement('img');im.src='stickers/'+n;b.appendChild(im);b.onclick=()=>sendStk(n);grid.appendChild(b)});
+$('#emojiBtn').onclick=()=>$('#stkSheet').classList.add('on');
+$('#stkMask').onclick=()=>$('#stkSheet').classList.remove('on');
 $('#btnSet').onclick=()=>$('#sheet').classList.add('on');
 $('#mask').onclick=()=>$('#sheet').classList.remove('on');
-$('#cfgBase').value=cfg.base||'';
-$('#cfgKey').value=cfg.key||'';
-$('#cfgModel').value=cfg.model||'';
-$('#btnSaveCfg').onclick=()=>{
-  cfg={base:$('#cfgBase').value.trim(),key:$('#cfgKey').value.trim(),model:$('#cfgModel').value.trim()};
-  localStorage.setItem(K_CFG,JSON.stringify(cfg));
-  $('#state').textContent = cfg.key?'已接上':'在';
-  $('#sheet').classList.remove('on');
-};
-$('#btnClearCfg').onclick=()=>{
-  cfg={base:'',key:'',model:''};
-  localStorage.setItem(K_CFG,JSON.stringify(cfg));
-  $('#cfgBase').value='';$('#cfgKey').value='';$('#cfgModel').value='';
-  $('#state').textContent='在';
-};
-
-$('#btnUploadWall').onclick=()=>$('#fileWall').click();
-$('#fileWall').onchange=e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const rd=new FileReader();
-  rd.onload=()=>{ setWall('url('+rd.result+')'); };
-  rd.readAsDataURL(f);
-};
-$('#btnResetWall').onclick=()=>{ localStorage.removeItem(K_WALL); restoreWall(); };
-
-$('#btnExport').onclick=()=>{
-  const blob=new Blob([JSON.stringify(msgs,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='lin-du-chat-'+Date.now()+'.json';
-  a.click();
-};
+$('#cfgBase').value=cfg.base||'';$('#cfgKey').value=cfg.key||'';$('#cfgModel').value=cfg.model||'';
+$('#btnSaveCfg').onclick=()=>{cfg={base:$('#cfgBase').value.trim(),key:$('#cfgKey').value.trim(),model:$('#cfgModel').value.trim()};localStorage.setItem(K_CFG,JSON.stringify(cfg));$('#state').textContent=cfg.key?'已接上':'在';$('#sheet').classList.remove('on')};
+$('#btnClearCfg').onclick=()=>{cfg={base:'',key:'',model:''};localStorage.setItem(K_CFG,JSON.stringify(cfg));$('#cfgBase').value='';$('#cfgKey').value='';$('#cfgModel').value='';$('#state').textContent='在'};
+$('#btnAvatar').onclick=()=>$('#fileAvatar').click();
+$('#fileAvatar').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{localStorage.setItem(K_AV,rd.result);applyAvatar(rd.result)};rd.readAsDataURL(f)};
+$('#btnAvatarReset').onclick=()=>{localStorage.removeItem(K_AV);applyAvatar('')};
+$('#btnBgImg').onclick=()=>$('#fileBg').click();
+$('#fileBg').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{localStorage.setItem(K_BG,rd.result);applyBg(rd.result)};rd.readAsDataURL(f)};
+$('#btnBgReset').onclick=()=>{localStorage.removeItem(K_BG);applyBg('')};
+$('#btnExport').onclick=()=>{const blob=new Blob([JSON.stringify(msgs,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lin-du-chat-'+Date.now()+'.json';a.click()};
 $('#btnImport').onclick=()=>$('#fileJson').click();
-$('#fileJson').onchange=e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const rd=new FileReader();
-  rd.onload=()=>{
-    try{
-      const arr=JSON.parse(rd.result);
-      if(Array.isArray(arr)){ msgs=msgs.concat(arr); save(); render(); }
-    }catch(_){}
-  };
-  rd.readAsText(f);
-};
-$('#btnClearAll').onclick=()=>{
-  if(confirm('清空全部记录？')){ msgs=[]; save(); render(); }
-};
-
-/* ---------- 启动 ---------- */
-if(cfg.key) $('#state').textContent='已接上';
+$('#fileJson').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const arr=JSON.parse(rd.result);if(Array.isArray(arr)){msgs=msgs.concat(arr);save();render()}}catch(_){}};rd.readAsText(f)};
+$('#btnClearAll').onclick=()=>{if(confirm('清空全部记录？')){msgs=[];save();render()}};
+if(cfg.key)$('#state').textContent='已接上';
+if(!msgs.length){msgs.push({r:'you',t:'在。浅蓝的这版，喜欢吗。',ts:Date.now()});save()}
 render();
 </script>
 </body>
