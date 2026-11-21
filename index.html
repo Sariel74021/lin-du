@@ -209,7 +209,7 @@ function sendStk(name){
   ask(m);
 }
 const grid=$('#stkGrid');
-STICKERS.forEach(n=>{const b=document.createElement('button');const im=document.createElement('img');im.src=stSrc(n);b.appendChild(im);b.onclick=()=>sendStk(n);grid.appendChild(b)});
+Object.keys(STICKERS).forEach(n=>{const b=document.createElement('button');const im=document.createElement('img');im.src=stSrc(n);b.appendChild(im);b.onclick=()=>sendStk(n);grid.appendChild(b)});
 $('#emojiBtn').onclick=()=>$('#stkSheet').classList.add('on');
 $('#stkMask').onclick=()=>$('#stkSheet').classList.remove('on');
 $('#btnSet').onclick=()=>$('#sheet').classList.add('on');
